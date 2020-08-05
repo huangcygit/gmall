@@ -3,6 +3,7 @@ package com.hy.gmall.controller.user;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.hy.gmall.bean.user.UmsMember;
 import com.hy.gmall.service.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping(("/user"))
 public class UserController {
 
