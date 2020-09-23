@@ -9,4 +9,8 @@ public interface SpuService {
     List<PmsProductInfo> spuList(String catalog3Id);
 
     List<PmsProductSaleAttr> spuSaleAttrList(String spuId);
+
+    void saveSpuInfo(PmsProductInfo pmsProductInfo);
+
+    List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId, String id);
 }

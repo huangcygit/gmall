@@ -4,10 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.hy.gmall.bean.manage.PmsProductInfo;
 import com.hy.gmall.bean.manage.PmsProductSaleAttr;
 import com.hy.gmall.service.SpuService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,12 @@ public class SpuController {
 
         List<PmsProductSaleAttr> pmsProductSaleAttrs = spuService.spuSaleAttrList(spuId);
         return pmsProductSaleAttrs;
+    }
+
+    @RequestMapping(value = "saveSpuInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
+        spuService.saveSpuInfo(pmsProductInfo);
+        return "success";
     }
 }

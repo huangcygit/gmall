@@ -9,6 +9,7 @@ import com.hy.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.hy.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import com.hy.gmall.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
@@ -16,6 +17,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 @Service
+@Component
 public class AttrServiceImpl implements AttrService {
 
     @Autowired
@@ -29,7 +31,16 @@ public class AttrServiceImpl implements AttrService {
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
         PmsBaseAttrInfo info = new PmsBaseAttrInfo();
         info.setCatalog3Id(catalog3Id);
-        return pmsBaseAttrInfoMapper.select(info);
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(info);
+
+        for (PmsBaseAttrInfo attrInfo : pmsBaseAttrInfos){
+            PmsBaseAttrValue attrValue = new PmsBaseAttrValue();
+            attrValue.setAttrId(attrInfo.getId());
+            List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.select(attrValue);
+            attrInfo.setAttrValueList(pmsBaseAttrValues);
+        }
+
+        return pmsBaseAttrInfos;
     }
 
     @Override
