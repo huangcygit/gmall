@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,25 +27,33 @@ import java.util.stream.Collectors;
 public class JedisRedisClusterConfig {
     @Value("${spring.redis.cluster.nodes}")
     private String nodes;
+
     @Bean
     public RedisClusterConfiguration redisClusterConfiguration(){
         RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
-        Set<RedisNode> redisNodes = new LinkedHashSet();
+        Set<RedisNode> redisNodes = new HashSet();
         Set<String> hostAndPorts = Arrays.stream(nodes.split(",")).collect(Collectors.toSet());
         for (String hostAndPort : hostAndPorts){
             String[] args = StringUtils.split(hostAndPort, ":");
-            RedisNode redisNode = new RedisNode(args[0], Integer.valueOf(args[1]));
+            RedisNode redisNode = new RedisNode(args[0].trim(), Integer.valueOf(args[1]));
             redisNodes.add(redisNode);
         }
+        redisClusterConfiguration.setClusterNodes(redisNodes);
         redisClusterConfiguration.setMaxRedirects(100);
         return redisClusterConfiguration;
     }
     @Bean
     JedisPoolConfig jedisPoolConfig(){
         JedisPoolConfig config = new JedisPoolConfig();
-//        config.setMaxWaitMillis();
-//        config.setMinIdle();
-//        config.setMaxIdle();
+        config.setMaxWaitMillis(5000);
+        config.setMinIdle(0);
+        config.setMaxIdle(8);
+        config.setMaxTotal(100);
+        config.setMinEvictableIdleTimeMillis(180000);
+        config.setNumTestsPerEvictionRun(3);
+        config.setTimeBetweenEvictionRunsMillis(-1);
+        config.setTestOnBorrow(true);
+        config.setTestWhileIdle(true);
         return config;
     }
     @Bean

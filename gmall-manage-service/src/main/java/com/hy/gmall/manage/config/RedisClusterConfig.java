@@ -14,7 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * lettuce方式连接redis集群
  */
-@Configuration
+//@Configuration
 public class RedisClusterConfig {
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory){

@@ -9,10 +9,12 @@ import com.hy.gmall.manage.mapper.PmsBaseCatalog2Mapper;
 import com.hy.gmall.manage.mapper.PmsBaseCatalog3Mapper;
 import com.hy.gmall.service.CatagorylogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Service
+@Component
 public class CatagorylogServiceImpl implements CatagorylogService {
 
     @Autowired

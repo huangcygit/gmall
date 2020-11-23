@@ -11,12 +11,14 @@ import com.hy.gmall.manage.mapper.PmsSkuInfoMapper;
 import com.hy.gmall.manage.mapper.PmsSkuSaleAttrValueMapper;
 import com.hy.gmall.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
 @Service
+@Component
 public class SkuServiceImpl implements SkuService {
     @Autowired
     private PmsSkuInfoMapper pmsSkuInfoMapper;
@@ -70,14 +72,15 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public List<PmsSkuInfo> getAllSku() {
         List<PmsSkuInfo> pmsSkuInfos = pmsSkuInfoMapper.selectAll();
+
         if (CollectionUtils.isEmpty(pmsSkuInfos)){
             return null;
         }
         for (PmsSkuInfo info : pmsSkuInfos){
-            PmsSkuSaleAttrValue attrValue = new PmsSkuSaleAttrValue();
+            PmsSkuAttrValue attrValue = new PmsSkuAttrValue();
             attrValue.setSkuId(info.getId());
-            List<PmsSkuSaleAttrValue> pmsSkuSaleAttrValues = pmsSkuSaleAttrValueMapper.select(attrValue);
-            info.setSkuSaleAttrValueList(pmsSkuSaleAttrValues);
+            List<PmsSkuAttrValue> pmsSkuAttrValues = pmsSkuAttrValueMapper.select(attrValue);
+            info.setSkuAttrValueList(pmsSkuAttrValues);
         }
         return pmsSkuInfos;
     }

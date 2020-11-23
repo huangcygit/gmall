@@ -9,12 +9,14 @@ import com.hy.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import com.hy.gmall.manage.mapper.PmsProductSaleAttrValueMapper;
 import com.hy.gmall.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
 @Service
+@Component
 public class SpuServiceImpl implements SpuService {
 
     @Autowired
