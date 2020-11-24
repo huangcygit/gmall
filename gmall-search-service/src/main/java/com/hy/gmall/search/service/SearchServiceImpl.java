@@ -56,7 +56,6 @@ public class SearchServiceImpl implements SearchService {
                 PmsSearchSkuInfo info = hit.source;
                 pmsSearchSkuInfos.add(info);
             }
-            System.out.println(searchResult.getTotal());
         } catch (IOException e) {
             e.printStackTrace();
         }

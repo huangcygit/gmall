@@ -23,4 +23,6 @@ public class PmsSearchParam implements Serializable {
     private int pageSize = 100;
 
     private List<PmsSkuAttrValue> skuAttrValueList;
+
+    private String[] valueId;
 }
